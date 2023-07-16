@@ -1,49 +1,48 @@
 package com.example.mylol.client;
 
-import com.example.mylol.riot.dto.ChampionMasteryDTO;
+import com.example.mylol.riot.dto.MatchlistDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
 
 import static com.example.mylol.constants.HeaderConstants.ACCEPT;
 import static com.example.mylol.constants.HeaderConstants.API_KEY;
 
 @Service
-public class ChampionMasteryClient {
+public class MatchClient {
 
     @Value("${mylol.apikey}")
     private String key;
-    @Value("${mylol.url.championmastery.bysummonerid}")
-    private String champitonMasteryBySummonerId;
+    @Value("${mylol.url.match.byaccountid}")
+    private String matchByAccountId;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<ChampionMasteryDTO> getLeaguePositionBySummonerId(Long summonerId) {
+    public MatchlistDTO getMatchList(Long accountId, Integer beginIndex, Integer endIndex) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(champitonMasteryBySummonerId)
-                .path(String.valueOf(summonerId))
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(matchByAccountId)
+                .path(String.valueOf(accountId))
+                .queryParam("beginIndex", beginIndex)
+                .queryParam("endIndex", endIndex)
                 .queryParam(API_KEY, key);
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        HttpEntity<List<ChampionMasteryDTO>> response = restTemplate.exchange(
+        HttpEntity<MatchlistDTO> response = restTemplate.exchange(
                 builder.toUriString(),
                 HttpMethod.GET,
                 entity,
-                new ParameterizedTypeReference<List<ChampionMasteryDTO>>() {}
+                MatchlistDTO.class
         );
 
         return response.getBody();

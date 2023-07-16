@@ -2,6 +2,7 @@ package com.example.mylol;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,14 +11,35 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class MylolConfiguration implements WebMvcConfigurer {
 
-    @Value("${mylol.url.static.folder}")
-    private String resourceLocation;
-    @Value("${mylol.url.static.path}")
-    private String staticPath;
+    @Value("${mylol.url.static.folder.splash}")
+    private String resourceLocationSplash;
+    @Value("${mylol.url.static.path.splash}")
+    private String staticPathSplash;
+
+    @Value("${mylol.url.static.folder.profileicon}")
+    private String resourceLocationProfileIcon;
+    @Value("${mylol.url.static.path.profileicon}")
+    private String staticPathProfileIcon;
+
+    @Value("${mylol.url.static.folder.champion}")
+    private String resourceLocationChampion;
+    @Value("${mylol.url.static.path.champion}")
+    private String staticPathChampion;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(staticPath + "**")
-                .addResourceLocations(resourceLocation);
+        registry.addResourceHandler(staticPathSplash + "**")
+                .addResourceLocations(resourceLocationSplash);
+
+        registry.addResourceHandler(staticPathProfileIcon + "**")
+                .addResourceLocations(resourceLocationProfileIcon);
+
+        registry.addResourceHandler(staticPathChampion + "**")
+                .addResourceLocations(resourceLocationChampion);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
     }
 }

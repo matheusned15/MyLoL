@@ -1,8 +1,8 @@
 package com.example.mylol.client;
 
-import static com.example.mylol.client.HeaderConstants.ACCEPT;
-import static com.example.mylol.client.HeaderConstants.API_KEY;
-import com.example.mylol.riot.LeaguePositionDTO;
+import static com.example.mylol.constants.HeaderConstants.ACCEPT;
+import static com.example.mylol.constants.HeaderConstants.API_KEY;
+import com.example.mylol.riot.dto.LeaguePositionDTO;
 
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.example.mylol.client;
 
 
-import com.example.mylol.riot.SummonerDTO;
+import com.example.mylol.riot.dto.SummonerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import static com.example.mylol.client.HeaderConstants.ACCEPT;
-import static com.example.mylol.client.HeaderConstants.API_KEY;
+import static com.example.mylol.constants.HeaderConstants.ACCEPT;
+import static com.example.mylol.constants.HeaderConstants.API_KEY;
 
 @Service
 public class SummonerClient {
